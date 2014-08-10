@@ -3,18 +3,13 @@
 require 'twitter_ebooks'
 include Ebooks
 
-CONSUMER_KEY = ""
-CONSUMER_SECRET = ""
-OATH_TOKEN = "" # oauth token for ebooks account
-OAUTH_TOKEN_SECRET = "" # oauth secret for ebooks account
-
 ROBOT_ID = "ebooks" # Avoid infinite reply chains
-TWITTER_USERNAME = "ebooks_username" # Ebooks account username
-TEXT_MODEL_NAME = "username" # This should be the name of the text model
+TWITTER_USERNAME = "keats_ebooks" # Ebooks account username
+TEXT_MODEL_NAME = "yoshokatana" # This should be the name of the text model
 
 DELAY = 2..30 # Simulated human reply delay range in seconds
-BLACKLIST = ['insomnius', 'upulie'] # Grumpy users to avoid interaction with
-SPECIAL_WORDS = ['ebooks', 'bot', 'bots', 'clone', 'singularity', 'world domination']
+BLACKLIST = ['fart'] # Grumpy users to avoid interaction with
+SPECIAL_WORDS = ['ebooks', 'bot', 'bots', 'clone', 'singularity', 'world domination', 'artificial intelligence', 'butts']
 
 # Track who we've randomly interacted with globally
 $have_talked = {}
@@ -24,8 +19,8 @@ class GenBot
     @bot = bot
     @model = nil
 
-    bot.consumer_key = CONSUMER_KEY
-    bot.consumer_secret = CONSUMER_SECRET
+    bot.consumer_key = ENV["CONSUMER_KEY"]
+    bot.consumer_secret = ENV["CONSUMER_SECRET"]
 
     bot.on_startup do
       @model = Model.load("model/#{modelname}.model")
@@ -131,8 +126,8 @@ def make_bot(bot, modelname)
 end
 
 Ebooks::Bot.new(TWITTER_USERNAME) do |bot|
-  bot.oauth_token = OATH_TOKEN
-  bot.oauth_token_secret = OAUTH_TOKEN_SECRET
+  bot.oauth_token = ENV["OATH_TOKEN"]
+  bot.oauth_token_secret = ENV["OAUTH_TOKEN_SECRET"]
 
   make_bot(bot, TEXT_MODEL_NAME)
 end
