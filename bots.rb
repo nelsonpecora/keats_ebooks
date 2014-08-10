@@ -92,8 +92,8 @@ class GenBot
       end
     end
 
-    # Schedule a main tweet for every day at midnight
-    bot.scheduler.cron '0,30 * * * *' do
+    # Schedule a main tweet for every 15 minutes
+    bot.scheduler.cron '*/15 * * * *' do
       bot.tweet @model.make_statement
       $have_talked = {}
     end
