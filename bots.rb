@@ -85,10 +85,10 @@ class GenBot
       if very_interesting || special
         favorite(tweet) if (rand < 0.5 && !favd) # Don't fav the tweet if we did earlier
         retweet(tweet) if rand < 0.1
-        reply(tweet, meta) if rand < 0.1
+        # reply(tweet, meta) if rand < 0.1
       elsif interesting
         favorite(tweet) if rand < 0.1
-        reply(tweet, meta) if rand < 0.05
+        # reply(tweet, meta) if rand < 0.05
       end
     end
 
